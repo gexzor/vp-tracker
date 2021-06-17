@@ -1,0 +1,67 @@
+<app-hero-header></app-hero-header>
+
+<div class="page-content" *ngIf="matchData$ | async as Match; else loading">
+  <div class="section-header">
+    <div class="mat-headline text-capitalize">Match overview</div>
+    <div class="mat-subheading-1 text-secondary">
+      An overview of the match scoreline, the team gold and xp advantage over
+      time, as well as individual player stats.
+    </div>
+  </div>
+
+  <mat-card class="match">
+    <div class="match-id mat-small text-right text-secondary">
+      Match {{ match.match_id }}
+    </div>
+    <mat-card-header class="mb-5">
+      <mat-card-title class="text-center">
+        {{ match.radiant_win === true ? "Radiant victory" : "Dire victory" }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{ match.duration * 1000 | date: "m:ss":"UTC" }} min
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="match-score d-flex w-100">
+        <div class="radiant d-flex flex-column flex-fill text-center m-1 py-5">
+          <span class="text-white mat-display-3 mb-0">{{
+            match.radiant_score
+          }}</span>
+          <span>Radiant</span>
+        </div>
+        <div class="dire d-flex flex-column flex-fill text-center m-1 py-5">
+          <span class="text-white mat-display-3 mb-0">{{
+            match.dire_score
+          }}</span>
+          <span>Dire</span>
+        </div>
+      </div>
+
+      <div class="match-charts">
+        <mat-tab-group mat-align-tabs="center" mat-stretch-tabs>
+          <mat-tab label="Gold">
+            <app-chart
+              *ngIf="match.radiant_gold_adv !== null"
+              [chartData]="goldAdvantage"
+            >
+            </app-chart>
+          </mat-tab>
+          <mat-tab label="XP">
+            <app-chart
+              *ngIf="match.radiant_gold_adv !== null"
+              [chartData]="xpAdvantage"
+              [unit]="chartUnits.GOLD"
+            >
+            </app-chart>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<ng-template #loading class="mt-4">
+  <div class="mat-headline text-white">Loading match {{ matchId }}...</div>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</ng-template>

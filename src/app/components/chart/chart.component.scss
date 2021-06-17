@@ -1,0 +1,18 @@
+@use ''as *;
+
+.chart {
+  height: 300px;
+  margin: $m4 0;
+}
+
+
+::ng-deep {
+  mat-tab-body.mat-tab-body {
+    opacity: 0;
+    transition: opacity 300ms ease-in 150ms;
+
+    &.mat-tab-body-active {
+      opacity: 1;
+    }
+  }
+}

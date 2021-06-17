@@ -1,0 +1,25 @@
+@import 'colors';
+
+.mat-headline,
+.mat-display-1,
+.mat-display-2,
+.mat-display-3,
+.mat-display-4,
+.mat-h1,
+.mat-headline,
+.mat-h2,
+.mat-title {
+  color: map-get(map-get($colors, gex-gray), base);
+}
+
+.mat-h3,
+.mat-subheading-2,
+.mat-h4,
+.mat-subheading-1 {
+  color: map-get(map-get($colors, gex-gray), darker);
+}
+
+p,
+.mat-body-1 {
+  color: white;
+}

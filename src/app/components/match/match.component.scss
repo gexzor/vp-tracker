@@ -1,0 +1,26 @@
+@use ''as *;
+
+.match {
+  .match-score {
+    .radiant {
+      background: $primary;
+    }
+
+    .dire {
+      background: $accent2;
+    }
+  }
+}
+
+::ng-deep {
+  mat-card-header {
+    .mat-card-header-text {
+      width: 100%;
+      text-align: center;
+
+      .mat-card-title {
+        text-transform: uppercase;
+      }
+    }
+  }
+}

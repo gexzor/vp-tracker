@@ -1,0 +1,173 @@
+// Material button hover style overwrite
+@mixin mat-button-hover($theme, $colors) {
+
+  button.mat-raised-button,
+  button.mat-flat-button,
+  button.mat-icon-button,
+  button.mat-fab,
+  button.mat-mini-fab {
+    box-sizing: border-box !important;
+
+    .mat-button-focus-overlay {
+      opacity: .04;
+    }
+  }
+}
+
+// Material button focus style overwrite
+@mixin mat-button-focus($theme, $colors) {
+  $foreground-colors: map-get($theme, foreground);
+  $background-colors: map-get($theme, background);
+  $primary: mat-color(map-get($colors, primary), default);
+  $accent: mat-color(map-get($colors, accent), default);
+  $warn: mat-color(map-get($colors, warn), default);
+
+  // Replaces outlines with theme colored box-shadows
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px mat-color($foreground-colors, text);
+
+    &.mat-primary {
+      box-shadow: 0 0 0 1px $primary;
+    }
+
+    &.mat-accent {
+      box-shadow: 0 0 0 1px $accent;
+    }
+
+    &.mat-warn {
+      box-shadow: 0 0 0 1px $warn;
+    }
+  }
+}
+
+
+// Customized Angular Material Button success variant
+@mixin mat-button-success-variant($theme, $colors) {
+  $success: mat-color(map-get($colors, success), default);
+
+  // Buttons
+  button.mat-button-base,
+  button.mat-raised-button,
+  button.mat-flat-button,
+  button.mat-icon-button,
+  button.mat-fab,
+  button.mat-mini-fab {
+    &.mat-success {
+      // Success colored text
+      color: $success;
+
+      // Success colored background on hover
+      .mat-button-focus-overlay {
+        background-color: $success;
+      }
+
+      // Replaces outlines with success colored box-shadows
+      &:focus {
+        box-shadow: 0 0 0 1px $success;
+      }
+    }
+  }
+}
+
+
+// Customized Angular Material SnackBar
+@mixin mat-snackbar-overrides($theme, $colors) {
+  $primary: mat-color(map-get($colors, primary), default);
+  $accent: mat-color(map-get($colors, accent), default);
+  $warn: mat-color(map-get($colors, warn), default);
+  $success: mat-color(map-get($colors, success), default);
+
+  snack-bar-container {
+
+    &.snackbar-primary,
+    &.snackbar-success,
+    &.snackbar-warn,
+    &.snackbar-info {
+      .mat-simple-snackbar {
+        justify-content: center;
+      }
+    }
+
+    &.snackbar-primary {
+      background-color: $primary;
+    }
+
+    &.snackbar-accent {
+      background-color: $accent;
+    }
+
+    &.snackbar-warn {
+      background-color: $warn;
+    }
+
+    &.snackbar-success {
+      background-color: $success;
+    }
+
+    //&.snackbar-info {} Maybe?
+  }
+}
+
+
+// Angular Material sidenav backdrop shadow removed
+@mixin mat-sidenav-overrides($theme, $colors) {
+  .mat-drawer-backdrop.mat-drawer-shown {
+    background-color: transparent;
+  }
+}
+
+
+// TODO: Perhaps find a way to do this with a mixin to achieve uniformity
+// Overrides particular theme colors 
+@function theme-color-overrides($theme, $colors) {
+  $background: map-get($theme, background); // List of background colors
+  $bg-color: map-get($colors, bg-color);
+  $card-bg-color: map-get($colors, card-bg-color);
+
+  // Background color list overrides
+  $background: map_merge($background, (background: $bg-color)); // Background color override
+  $background: map_merge($background, (card: $card-bg-color)); // Card background color override
+
+  // Apply the updated color list to the theme
+  @return (map_merge($theme, (background: $background)));
+}
+
+
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+@mixin theme-typography {
+  $theme-typography: mat-typography-config($font-family: 'Open Sans, sans-serif',
+      $display-4: mat-typography-level(112px, 112px, 700),
+      $display-3: mat-typography-level(72px, 72px, 700),
+      $headline: mat-typography-level(32px, 32px, 600),
+      $title: mat-typography-level(28px, 32px, 500),
+      $subheading-2: mat-typography-level(20px, 24px, 400),
+      $subheading-1: mat-typography-level(18px, 24px, 400));
+
+  $card-typography: mat-typography-config($font-family: 'Open Sans, sans-serif',
+      $title: mat-typography-level(16px 20px, 400));
+
+  // Override typography CSS classes (e.g., mat-h1, mat-display-1, mat-typography, etc.).
+  @include mat-base-typography($theme-typography);
+
+  // Override typography for a specific Angular Material components.
+  @include mat-card-typography($card-typography);
+
+  // Override typography for all Angular Material, including mat-base-typography and all components.
+  //   @include angular-material-typography($theme-typography);
+
+  // Override the typography in the core CSS.
+  //   @include mat-core($theme-typography);
+}
+
+
+// Finally include override mixins here
+@mixin material-overrides($theme, $colors) {
+  @include mat-button-hover($theme, $colors);
+  @include mat-button-focus($theme, $colors);
+  @include mat-button-success-variant($theme, $colors);
+  @include mat-snackbar-overrides($theme, $colors);
+  @include mat-sidenav-overrides($theme, $colors);
+  @include theme-typography;
+}

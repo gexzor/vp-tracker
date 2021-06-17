@@ -1,0 +1,47 @@
+// Import material theming functions
+@import '~@angular/material/theming';
+@import 'generators';
+@import 'palettes';
+@import 'overrides';
+
+// Theme color palettes
+$theme-primary: mat-palette($gex-purple);
+$theme-accent: mat-palette($gex-teal);
+$theme-warn: mat-palette($mat-red);
+$theme-success: mat-palette($light-green);
+$theme-accent2: mat-palette($gex-blue);
+$gray-palette: mat-palette($gex-gray, 500, 300, 900);
+$theme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
+
+
+// List of palettes
+$palettes: (theme-primary: $theme-primary, theme-accent: $theme-accent, theme-warn: $theme-warn, theme-success: $theme-success, theme-accent2: $theme-accent2);
+
+
+// Color variables
+// TODO: Maybe these should be removed?
+$primary: mat-color($theme-primary);
+$accent: mat-color($theme-accent);
+$warn: mat-color($theme-warn);
+$success: mat-color($theme-success);
+$accent2: mat-color($theme-accent2);
+$gex-gray: mat-color($gray-palette);
+$bg-color: rgba(25, 24, 29, 1);
+$card-bg-color: rgba(37, 37, 47, 1);
+
+
+// List of colors
+// TODO: Add hover, focus, disabled, etc.
+$colors: (primary: (base: $primary, lighter: mat-color($theme-primary, lighter), darker: mat-color($theme-primary, darker)),
+  accent: (base: $accent, lighter: mat-color($theme-accent, lighter), darker: mat-color($theme-accent, darker)),
+  warn: (base: $warn, lighter: mat-color($theme-warn, lighter), darker: mat-color($theme-warn, darker)),
+  success: (base: $success, lighter: mat-color($theme-success, lighter), darker: mat-color($theme-success, darker)),
+  accent2: (base: $accent2, lighter: mat-color($theme-accent2, lighter), darker: mat-color($theme-accent2, darker)),
+  gex-gray: (base: $gex-gray, lighter: mat-color($gray-palette, lighter), darker: mat-color($gray-palette, darker)),
+  card-bg-color: $card-bg-color,
+  bg-color: $bg-color);
+
+
+// Overrides particular theme colors 
+//TODO: Find a way to move this to overrides
+$theme: theme-color-overrides($theme, $colors);
