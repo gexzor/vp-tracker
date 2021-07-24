@@ -23,28 +23,28 @@
   $warn: mat-color(map-get($colors, warn), default);
 
   // Replaces outlines with theme colored box-shadows
-  button:focus {
-    outline: none;
-    box-shadow: 0 0 0 1px mat-color($foreground-colors, text);
+//   button:focus {
+//     outline: none;
+//     box-shadow: 0 0 0 1px mat-color($foreground-colors, text);
 
-    &.mat-primary {
-      box-shadow: 0 0 0 1px $primary;
-    }
+//     &.mat-primary {
+//       box-shadow: 0 0 0 1px $primary;
+//     }
 
-    &.mat-accent {
-      box-shadow: 0 0 0 1px $accent;
-    }
+//     &.mat-accent {
+//       box-shadow: 0 0 0 1px $accent;
+//     }
 
-    &.mat-warn {
-      box-shadow: 0 0 0 1px $warn;
-    }
-  }
+//     &.mat-warn {
+//       box-shadow: 0 0 0 1px $warn;
+//     }
+//   }
 }
 
 
 // Customized Angular Material Button success variant
 @mixin mat-button-success-variant($theme, $colors) {
-  $success: mat-color(map-get($colors, success), default);
+  $success: map-get(map-get($colors, success), base);
 
   // Buttons
   button.mat-button-base,
@@ -63,9 +63,37 @@
       }
 
       // Replaces outlines with success colored box-shadows
-      &:focus {
-        box-shadow: 0 0 0 1px $success;
+    //   &:focus {
+    //     box-shadow: 0 0 0 1px $success;
+    //   }
+    }
+  }
+}
+
+// Customized Angular Material Button accent2 variant
+@mixin mat-button-accent2-variant($theme, $colors) {
+  $accent2: map-get(map-get($colors, accent2), base);
+
+  // Buttons
+  button.mat-button-base,
+  button.mat-raised-button,
+  button.mat-flat-button,
+  button.mat-icon-button,
+  button.mat-fab,
+  button.mat-mini-fab {
+    &.mat-accent2 {
+      // Accent2 colored text
+      color: $accent2;
+
+      // Accent2 colored background on hover
+      .mat-button-focus-overlay {
+        background-color: $accent2;
       }
+
+      // Replaces outlines with accent2 colored box-shadows
+    //   &:focus {
+    //     box-shadow: 0 0 0 1px $accent2;
+    //   }
     }
   }
 }
@@ -167,6 +195,7 @@
   @include mat-button-hover($theme, $colors);
   @include mat-button-focus($theme, $colors);
   @include mat-button-success-variant($theme, $colors);
+  @include mat-button-accent2-variant($theme, $colors);
   @include mat-snackbar-overrides($theme, $colors);
   @include mat-sidenav-overrides($theme, $colors);
   @include theme-typography;

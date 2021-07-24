@@ -8,8 +8,8 @@
 $theme-primary: mat-palette($gex-purple);
 $theme-accent: mat-palette($gex-teal);
 $theme-warn: mat-palette($mat-red);
-$theme-success: mat-palette($light-green);
-$theme-accent2: mat-palette($gex-blue);
+$theme-success: mat-palette($light-green, 500, 300, 900);
+$theme-accent2: mat-palette($gex-blue, 500, 300, 900);
 $gray-palette: mat-palette($gex-gray, 500, 300, 900);
 $theme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
 
