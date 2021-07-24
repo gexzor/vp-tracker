@@ -3,8 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-    production: false,
-    databaseURL: 'https:api.opendota.com/api/',
+  apiKey: 'AIzaSyDclgjKDcr_h8VTinma2pFBSPuuzr2i6e4',
+  authDomain: 'warhammer-app-cdec2.firebaseapp.com',
+  projectId: 'warhammer-app-cdec2',
+  storageBucket: 'warhammer-app-cdec2.appspot.com',
+  messagingSenderId: '353531994355',
+  appId: '1:353531994355:web:fb01c156a8641db17b5786',
+  production: false,
 };
 
 /*
