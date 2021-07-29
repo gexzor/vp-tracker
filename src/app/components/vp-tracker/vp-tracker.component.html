@@ -1,58 +1,23 @@
-<div class="hero-header">
-  <div class="mat-display-3">
-    VP Tracker
-    <!-- <span class="mat-display-4">Tracker</span> -->
-  </div>
-</div>
+<div class="mat-display-2 ml-4">VP Tracker</div>
 
 <mat-vertical-stepper orientation="vertical" linear #stepper>
   <mat-step>
     <ng-template matStepLabel>Match setup</ng-template>
-    <mat-label class="h5"
-      >Choose your faction and secondary objectives.</mat-label
+    <button
+      mat-stroked-button
+      color="accent2"
+      (click)="openFactionTreeDialog()"
     >
+      {{ faction ? faction.name : "Choose faction" }}
+    </button>
 
-    <mat-tree
-      [dataSource]="dataSource"
-      [treeControl]="treeControl"
-      class="faction-tree"
-    >
-      <!-- This is the tree node template for leaf nodes -->
-      <!-- There is inline padding applied to this node using styles.
-            This padding value depends on the mat-icon-button width. -->
-      <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
-        {{ node.name }}
-      </mat-tree-node>
-      <!-- This is the tree node template for expandable nodes -->
-      <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild" #tree>
-        <div class="mat-tree-node">
-          <button
-            mat-icon-button
-            matTreeNodeToggle
-            [attr.aria-label]="'Toggle ' + node.name"
-          >
-            <mat-icon class="mat-icon-rtl-mirror">
-              {{
-                treeControl.isExpanded(node) ? "expand_more" : "chevron_right"
-              }}
-            </mat-icon>
-          </button>
-          {{ node.name }}
-        </div>
-        <!-- There is inline padding applied to this div using styles.
-                This padding value depends on the mat-icon-button width.  -->
-        <div
-          [class.faction-tree-invisible]="!treeControl.isExpanded(node)"
-          role="group"
-        >
-          <ng-container matTreeNodeOutlet></ng-container>
-        </div>
-      </mat-nested-tree-node>
-    </mat-tree>
+    <button mat-stroked-button color="accent2" (click)="openSecObjsDialog()">
+      Choose objectives
+    </button>
 
-    <div class="my-4 d-flex justify-content-around">
+    <!-- <div class="my-4 d-flex justify-content-around">
       <button color="primary" mat-flat-button matStepperNext>Finalize</button>
-    </div>
+    </div> -->
   </mat-step>
 
   <mat-step>

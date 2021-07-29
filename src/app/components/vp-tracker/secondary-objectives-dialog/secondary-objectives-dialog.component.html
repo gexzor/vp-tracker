@@ -1,0 +1,14 @@
+<mat-card>
+  <div class="mat-display-1">Pick 3 objectives</div>
+</mat-card>
+
+<div class="objectives-list">
+  <mat-card *ngFor="let obj of dataSource" class="my-2">
+    <mat-card-title>{{ obj.name }}</mat-card-title>
+    <mat-card-subtitle>{{ obj.type }}</mat-card-subtitle>
+    <mat-card-content>
+      <p>{{ obj.description }}</p>
+      <p>Points: {{ obj.points }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>

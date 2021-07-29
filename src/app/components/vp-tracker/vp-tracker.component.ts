@@ -1,22 +1,13 @@
-import { NestedTreeControl } from '@angular/cdk/tree';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTreeNestedDataSource } from '@angular/material/tree';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Round } from 'src/app/shared/models/PointsByRound';
+import { SecondaryObjective } from 'src/app/shared/models/SecondaryObjective';
 import { FactionNode } from '../../shared/models/FactionNode';
-
-const FACTION_DATA: FactionNode[] = [
-  {
-    name: 'Adeptus Astartes',
-    children: [
-      { name: 'Ultra Marines' },
-      { name: 'Space Wolves' },
-      { name: 'Blood Angels' },
-      { name: 'Gray Knights' },
-      { name: 'Imperial Fist' },
-      { name: 'Iron Hands' },
-    ],
-  },
-];
+import { FactionTreeDialogComponent } from './faction-tree-dialog/faction-tree-dialog.component';
+import { SecondaryObjectivesDialogComponent } from './secondary-objectives-dialog/secondary-objectives-dialog.component';
+export interface FactionTreeDialogData {
+  faction?: FactionNode;
+}
 
 @Component({
   selector: 'app-vp-tracker',
@@ -25,19 +16,15 @@ const FACTION_DATA: FactionNode[] = [
 })
 export class VpTrackerComponent implements OnInit {
   public rounds = new Array<Round>();
+  public faction: FactionNode;
   public victoryPoints = 0;
-  public treeControl = new NestedTreeControl<FactionNode>(
-    (node) => node.children
-  );
-  public dataSource = new MatTreeNestedDataSource<FactionNode>();
-  @ViewChild('tree') public tree: HTMLElement;
+  public objectives: SecondaryObjective[];
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
     // Create 5 empty rounds
     for (let index = 0; index < 5; index++) {
       this.rounds.push({ roundNumber: index, points: -1 });
     }
-    this.dataSource.data = FACTION_DATA;
   }
 
   ngOnInit() {}
@@ -51,6 +38,40 @@ export class VpTrackerComponent implements OnInit {
     );
   }
 
-  public hasChild = (_: number, node: FactionNode) =>
-    !!node.children && node.children.length > 0;
+  /**
+   * Opens the faction tree dialog.
+   */
+  public openFactionTreeDialog() {
+    this.dialog
+      .open(FactionTreeDialogComponent, {
+        data: {
+          faction: this.faction,
+        },
+        panelClass: ['custom-dialog'],
+        minWidth: '375px',
+      })
+      .afterClosed()
+      .subscribe((result: FactionNode) => {
+        this.faction = result;
+      });
+  }
+
+  /**
+   * Opens the dialog containing secondary objectives.
+   */
+  public openSecObjsDialog() {
+    this.dialog
+      .open(SecondaryObjectivesDialogComponent, {
+        data: {
+          faction: this.faction,
+        },
+        panelClass: ['custom-dialog'],
+        backdropClass: 'darker-backdrop',
+        minWidth: '375px',
+      })
+      .afterClosed()
+      .subscribe((result: SecondaryObjective[]) => {
+        this.objectives = result;
+      });
+  }
 }

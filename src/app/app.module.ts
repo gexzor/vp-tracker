@@ -18,6 +18,8 @@ import { TopnavComponent } from './components/topnav/topnav.component';
 import { VpTrackerComponent } from './components/vp-tracker/vp-tracker.component';
 import { MaterialModule } from './material-module';
 import { AuthService } from './shared/services/auth.service';
+import { FactionTreeDialogComponent } from './components/vp-tracker/faction-tree-dialog/faction-tree-dialog.component';
+import { SecondaryObjectivesDialogComponent } from './components/vp-tracker/secondary-objectives-dialog/secondary-objectives-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { AuthService } from './shared/services/auth.service';
     LoginComponent,
     SignupComponent,
     VpTrackerComponent,
+    FactionTreeDialogComponent,
+    SecondaryObjectivesDialogComponent,
   ],
   imports: [
     BrowserModule,

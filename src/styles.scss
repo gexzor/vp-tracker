@@ -13,6 +13,19 @@ body {
   background-color: $bg-color;
 }
 
+// Find a better place for these rules
+
 .spacer {
   flex: 1 1 auto;
+}
+
+.custom-dialog {
+  .mat-dialog-container {
+    padding: 16px;
+    background: none;
+  }
+}
+
+.darker-backdrop {
+  opacity: 1;
 }
